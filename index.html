@@ -37,9 +37,9 @@
 
         header {
             text-align: center;
-            padding: 30px 0 20px 0;
+            padding: 25px 0 15px 0;
             border-bottom: 2px solid #eaeaea;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         header h1 {
@@ -59,6 +59,24 @@
         header p.desc {
             color: var(--text-muted);
             font-size: 0.95rem;
+        }
+
+        /* User Profile Bar */
+        .user-bar {
+            background: #fff;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
         }
 
         /* Navigation Tabs */
@@ -128,6 +146,7 @@
         .feature-list {
             list-style: none;
             margin-top: 15px;
+            margin-bottom: 20px;
         }
 
         .feature-list li {
@@ -140,6 +159,75 @@
 
         .feature-list li::before {
             content: "✨";
+        }
+
+        /* Catalog Grid Styling */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .catalog-card {
+            background: #faf8f5;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .catalog-card h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .catalog-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .price-tag {
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+
+        /* Community Network Board */
+        .network-container, .reviews-container {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .post-card, .review-card {
+            background: #f9f9f9;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .review-card {
+            border-left-color: var(--accent);
+        }
+
+        .post-author, .review-author {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        .post-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .post-text, .review-text {
+            font-size: 0.9rem;
+            color: var(--text-main);
         }
 
         /* Action Buttons & Modals */
@@ -165,6 +253,17 @@
             background-color: #d35400;
         }
 
+        .btn-secondary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
         /* Modal styling */
         .modal {
             display: none;
@@ -174,6 +273,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            z-index: 1000;
         }
 
         .modal.open {
@@ -187,6 +287,8 @@
             width: 100%;
             max-width: 450px;
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-content h3 {
@@ -239,23 +341,47 @@
             <p class="desc">Style, Care & Innovation — Your centralized hub spanning fashion, food, health, and creative ventures.</p>
         </header>
 
+        <!-- User Profile Status Bar -->
+        <div class="user-bar">
+            <div class="user-info" id="userDisplay">👤 Guest Visitor (Not Signed In)</div>
+            <button class="btn-secondary" style="margin:0; padding: 6px 14px;" onclick="openProfileModal()">Create / Edit Profile</button>
+        </div>
+
         <!-- Interactive Navigation Tabs -->
         <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab(event, 'hairs')">💇‍♀️ Blossom Hairs & Fabrics</button>
+            <button class="tab-btn active" onclick="switchTab(event, 'hairs')">💇‍♀️ Hairs & Fabrics</button>
             <button class="tab-btn" onclick="switchTab(event, 'foods')">🌾 Blossom Foods</button>
             <button class="tab-btn" onclick="switchTab(event, 'hospitals')">🩺 Blossom Hospitals</button>
             <button class="tab-btn" onclick="switchTab(event, 'voice')">🎙️ Blossom Voice</button>
+            <button class="tab-btn" onclick="switchTab(event, 'community')">🌐 Community & Feed</button>
+            <button class="tab-btn" onclick="switchTab(event, 'reviews')">⭐ Reviews</button>
         </div>
 
         <!-- Section 1: Hairs & Fabrics -->
         <div id="hairs" class="section-content active">
             <h2>Blossom Hairs & Fabrics</h2>
-            <p>Elegance meets quality. Specializing in premium custom wig revamping, styling, and hand-selected Ankara & lace fashion pieces.</p>
+            <p>Elegance meets quality. Specializing in custom wig revamping, styling, and hand-selected Ankara & lace fashion pieces.</p>
             <ul class="feature-list">
                 <li>Custom Wig Construction & Revamping Services</li>
                 <li>Exclusive Ankara & Lace Material Selections</li>
                 <li>Bespoke Styling & Wardrobe Consultations</li>
             </ul>
+
+            <h3 style="color: var(--primary); font-size: 1.2rem; margin-top: 20px;">Featured Collection</h3>
+            <div class="catalog-grid">
+                <div class="catalog-card">
+                    <h4>Silk Lace Ankara Style</h4>
+                    <p>Vibrant custom tailored traditional fabric design.</p>
+                    <div class="price-tag">Inquire for Price</div>
+                    <button class="btn-secondary" onclick="openBookingModal('Hairs & Fabrics')">Order Piece</button>
+                </div>
+                <div class="catalog-card">
+                    <h4>Revamped Closure Wig</h4>
+                    <p>Bone straight styling with deep conditioning treatment.</p>
+                    <div class="price-tag">Inquire for Price</div>
+                    <button class="btn-secondary" onclick="openBookingModal('Hairs & Fabrics')">Book Service</button>
+                </div>
+            </div>
         </div>
 
         <!-- Section 2: Foods -->
@@ -267,6 +393,22 @@
                 <li>Aquaculture & Fish Farming Ventures</li>
                 <li>Quality Agro-Allied Farm Produce</li>
             </ul>
+
+            <h3 style="color: var(--primary); font-size: 1.2rem; margin-top: 20px;">Produce Showcase</h3>
+            <div class="catalog-grid">
+                <div class="catalog-card">
+                    <h4>Premium Broilers</h4>
+                    <p>Healthy, well-fed table-size poultry birds.</p>
+                    <div class="price-tag">Bulk / Unit Supply</div>
+                    <button class="btn-secondary" onclick="openBookingModal('Foods')">Reserve Supply</button>
+                </div>
+                <div class="catalog-card">
+                    <h4>Fresh Harvest Fish</h4>
+                    <p>Pond-raised table-size catfish from aquaculture.</p>
+                    <div class="price-tag">Available Fresh</div>
+                    <button class="btn-secondary" onclick="openBookingModal('Foods')">Reserve Supply</button>
+                </div>
+            </div>
         </div>
 
         <!-- Section 3: Hospitals -->
@@ -278,6 +420,7 @@
                 <li>Community Health Advocacy & Outreach</li>
                 <li>Patient-Centric Care Initiatives</li>
             </ul>
+            <button class="btn-secondary" onclick="openBookingModal('Hospitals')">Request Health Consultation</button>
         </div>
 
         <!-- Section 4: Voice -->
@@ -289,12 +432,53 @@
                 <li>Creative Media & Brand Storytelling</li>
                 <li>Student Movement & Community Updates</li>
             </ul>
+            <button class="btn-secondary" onclick="openBookingModal('Voice')">Submit Story / Idea</button>
         </div>
 
-        <!-- Call to Action / Booking Trigger -->
+        <!-- Section 5: Community Network & Feed -->
+        <div id="community" class="section-content">
+            <h2>Community Network & Feed</h2>
+            <p>Connect with other members, share ideas, and network across platforms!</p>
+
+            <div style="text-align: right; margin-bottom: 15px;">
+                <button class="btn-secondary" onclick="openPostModal()">✍️ Share to Network</button>
+            </div>
+
+            <div class="network-container" id="postsList">
+                <div class="post-card">
+                    <div class="post-author">Dr. Bea (Fashion & Student Partner)</div>
+                    <div class="post-meta">Connected via Blossom Community • Campus Colleague</div>
+                    <div class="post-text">Excited to see the new Blossom ecosystem live! Collaborating on fashion design and student initiatives is going to be amazing. ✨</div>
+                </div>
+                <div class="post-card">
+                    <div class="post-author">Blessing Akaya (Founder)</div>
+                    <div class="post-meta">System Administrator • Lokoja</div>
+                    <div class="post-text">Welcome everyone! Feel free to create your profile, connect with our ventures, and drop your thoughts on the network feed. 🚀</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Client Reviews -->
+        <div id="reviews" class="section-content">
+            <h2>Client Reviews & Feedback</h2>
+            <p>See what our community and partners have to say, or drop your own feedback below!</p>
+            
+            <div style="text-align: right; margin-bottom: 15px;">
+                <button class="btn-secondary" onclick="openReviewModal()">💬 Leave a Review</button>
+            </div>
+
+            <div class="reviews-container" id="reviewsList">
+                <div class="review-card">
+                    <div class="review-author">Dr. Bea</div>
+                    <div class="review-text">"Blossom Hairs & Fabrics never misses! Absolute top-tier quality styling and materials." ⭐⭐⭐⭐⭐</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
         <div class="cta-container">
             <p style="margin-bottom: 12px; color: var(--text-muted);">Ready to connect or place an order?</p>
-            <button class="btn-primary" onclick="openModal()">Get in Touch / Book Service</button>
+            <button class="btn-primary" onclick="openBookingModal('General')">Get in Touch / Book Service</button>
         </div>
 
         <footer>
@@ -303,65 +487,167 @@
         </footer>
     </div>
 
-    <!-- Interactive Booking Modal -->
-    <div id="contactModal" class="modal">
+    <!-- Profile Creation Modal -->
+    <div id="profileModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h3>Connect with Blossom</h3>
-            <form onsubmit="handleFormSubmit(event)">
+            <span class="close-modal" onclick="closeProfileModal()">&times;</span>
+            <h3>Create Your Blossom Profile</h3>
+            <form onsubmit="handleProfileSubmit(event)">
                 <div class="form-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" required placeholder="Enter your name">
+                    <label for="pName">Full Name</label>
+                    <input type="text" id="pName" required placeholder="Enter your name">
                 </div>
                 <div class="form-group">
-                    <label for="service">Select Venture</label>
-                    <select id="service">
+                    <label for="pRole">Your Role / Affiliation</label>
+                    <select id="pRole">
+                        <option value="Client / Customer">Client / Customer</option>
+                        <option value="Medical Partner">Medical Partner / Student</option>
+                        <option value="Fashion Collaborator">Fashion Collaborator</option>
+                        <option value="Agricultural Partner">Agricultural Partner</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pPlatform">Social / Platform Handle (Optional)</label>
+                    <input type="text" id="pPlatform" placeholder="e.g., @username or phone number">
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Save Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Community Post Modal -->
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closePostModal()">&times;</span>
+            <h3>Create Network Post</h3>
+            <form onsubmit="handlePostSubmit(event)">
+                <div class="form-group">
+                    <label for="postTextContent">Your Message / Update</label>
+                    <textarea id="postTextContent" rows="3" required placeholder="Share an idea, inquiry, or greeting with the community..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Post to Feed</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeBookingModal()">&times;</span>
+            <h3>Connect with Blossom</h3>
+            <form onsubmit="handleBookingSubmit(event)">
+                <div class="form-group">
+                    <label for="bService">Select Venture</label>
+                    <select id="bService">
                         <option value="Hairs & Fabrics">Blossom Hairs & Fabrics</option>
                         <option value="Foods">Blossom Foods</option>
                         <option value="Hospitals">Blossom Hospitals</option>
                         <option value="Voice">Blossom Voice</option>
+                        <option value="General">General Inquiry</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="message">Message / Inquiry</label>
-                    <textarea id="message" rows="3" required placeholder="Tell us what you need..."></textarea>
+                    <label for="bMessage">Message / Order Details</label>
+                    <textarea id="bMessage" rows="3" required placeholder="Tell us what you need..."></textarea>
                 </div>
                 <button type="submit" class="btn-primary" style="width: 100%;">Send Inquiry</button>
             </form>
         </div>
     </div>
 
+    <!-- Review Modal -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeReviewModal()">&times;</span>
+            <h3>Leave Your Feedback</h3>
+            <form onsubmit="handleReviewSubmit(event)">
+                <div class="form-group">
+                    <label for="revText">Your Review</label>
+                    <textarea id="revText" rows="3" required placeholder="Share your thoughts on the Blossom experience..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Post Review</button>
+            </form>
+        </div>
+    </div>
+
     <script>
+        let currentUser = { name: "Guest Visitor", role: "Visitor" };
+
         function switchTab(evt, tabName) {
             const contents = document.getElementsByClassName("section-content");
-            for (let c of contents) {
-                c.classList.remove("active");
-            }
-
+            for (let c of contents) c.classList.remove("active");
             const buttons = document.getElementsByClassName("tab-btn");
-            for (let b of buttons) {
-                b.classList.remove("active");
-            }
+            for (let b of buttons) b.classList.remove("active");
 
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
 
-        function openModal() {
-            document.getElementById("contactModal").classList.add("open");
-        }
+        function openProfileModal() { document.getElementById("profileModal").classList.add("open"); }
+        function closeProfileModal() { document.getElementById("profileModal").classList.remove("open"); }
+        
+        function openPostModal() { document.getElementById("postModal").classList.add("open"); }
+        function closePostModal() { document.getElementById("postModal").classList.remove("open"); }
 
-        function closeModal() {
-            document.getElementById("contactModal").classList.remove("open");
+        function openBookingModal(venture) {
+            document.getElementById("bookingModal").classList.add("open");
+            if (venture) document.getElementById("bService").value = venture;
         }
+        function closeBookingModal() { document.getElementById("bookingModal").classList.remove("open"); }
 
-        function handleFormSubmit(event) {
+        function openReviewModal() { document.getElementById("reviewModal").classList.add("open"); }
+        function closeReviewModal() { document.getElementById("reviewModal").classList.remove("open"); }
+
+        function handleProfileSubmit(event) {
             event.preventDefault();
-            alert("Thank you! Your inquiry has been received. Blossom will reach out to you shortly.");
-            closeModal();
+            const name = document.getElementById("pName").value;
+            const role = document.getElementById("pRole").value;
+            const platform = document.getElementById("pPlatform").value;
+
+            currentUser = { name, role };
+            document.getElementById("userDisplay").innerHTML = `👤 ${name} (${role}) ${platform ? '• ' + platform : ''}`;
+            alert(`Profile created successfully! Welcome to Blossom, ${name}.`);
+            closeProfileModal();
+        }
+
+        function handlePostSubmit(event) {
+            event.preventDefault();
+            const text = document.getElementById("postTextContent").value;
+            const list = document.getElementById("postsList");
+
+            const newPost = document.createElement("div");
+            newPost.className = "post-card";
+            newPost.innerHTML = `<div class="post-author">${currentUser.name}</div><div class="post-meta">${currentUser.role} • Just now</div><div class="post-text">${text}</div>`;
+            
+            list.prepend(newPost);
+            alert("Your update has been posted to the community feed!");
+            closePostModal();
+            event.target.reset();
+        }
+
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            alert(`Thank you ${currentUser.name}! Your inquiry has been received by Blossom.`);
+            closeBookingModal();
+            event.target.reset();
+        }
+
+        function handleReviewSubmit(event) {
+            event.preventDefault();
+            const text = document.getElementById("revText").value;
+            const list = document.getElementById("reviewsList");
+
+            const newRev = document.createElement("div");
+            newRev.className = "review-card";
+            newRev.innerHTML = `<div class="review-author">${currentUser.name}</div><div class="review-text">"${text}" ⭐⭐⭐⭐⭐</div>`;
+            
+            list.prepend(newRev);
+            alert("Thank you for your feedback!");
+            closeReviewModal();
             event.target.reset();
         }
     </script>
 </body>
 </html>
+
 
